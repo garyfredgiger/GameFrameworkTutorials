@@ -6,6 +6,15 @@ import game.framework.GameEngine;
 import game.framework.entities.Entity;
 import game.framework.interfaces.IRender;
 
+/**
+ * Tutorial 1: Creating an Empty Game Project
+ * 
+ * The steps for this tutorial are contained in the comments of this and the other project source files.
+ * 
+ *   This source file contains tutorial steps 1 and 2.
+ *   
+ */
+
 /*
 * STEP 1: Extending the GameEngine class 
 * 

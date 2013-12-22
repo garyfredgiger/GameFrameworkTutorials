@@ -64,7 +64,7 @@ public class GameDemo extends GameEngine
   private boolean             addEntity;
   private boolean             removeEntity;
 
-  // Book kepping variables
+  // Book keeping variables
   private int                 numCollisions;
 
   public GameDemo(IRender renderer)

@@ -11,6 +11,14 @@ import game.framework.primitives.Vector2D;
 import game.framework.utilities.GameEngineConstants;
 import game.framework.utilities.GameUtility;
 
+/**
+ * Tutorial 3: Adding Enemy Entities
+ * 
+ * The steps for this tutorial are contained in the comments of the other project source files.
+ * 
+ *   This source file contains tutorial steps 1, 2 and 3.
+ *   
+ */
 
 public class AvoidTheSquare extends GameEngine
 {
@@ -38,7 +46,7 @@ public class AvoidTheSquare extends GameEngine
   /*
    * STEP 2: Adding a Method Responsible for Adding New Enemies
    * 
-   * a) Add a new method named addEnemy with no parameters and of type void
+   * a) Add a new method named addRandomEnemy with no parameters and of type void
    * b) Create a new instance of the Entity class and call it enemy.
    * c) Set the type of the new enemy entity to ENEMY using the setEntityType() method. The enumerated type
    *    EntityTypes defined in the class GameEngineConstants defines all of the Entity types. All enemies in 
@@ -66,10 +74,29 @@ public class AvoidTheSquare extends GameEngine
    *    scaling the velocity, it can be assigned to the enemy entity using the method setVelocity(). 
    * g) All that is left to do is add the newly created enemy entity to the enemy entity list in the game engine. This can
    *    be done by accessing the enemy entity list using the method getEnemies() then calling the add method (e.g., 
-   *    getEnemies().add(enemy)). Now each time the method addEnemy is called, a new enemy entity will be added to the enemy 
-   *    entity list in the game engine with a random position and velocity. 
+   *    getEnemies().add(enemy)). Now each time the method addRandomEnemy is called, a new enemy entity will be added to the enemy 
+   *    entity list in the game engine with a random position and velocity.
+   * h) An alternate way to add entities to their respective lists is to use the methods below. 
+   * 
+   *      public void addEnemy(Entity entity)
+   *      public void addPlayerShot(Entity entity)
+   *      public void addEnemyShot(Entity entity)
+   *      
+   *    If these methods are used there is no need to explicitly set the entity type as mentioned in step 2c. In this example
+   *    the addEnemy() method will be called instead of the original method getEnemies().add(enemy). The new code for the method 
+   *    will then become in the method body will then become. 
+   *    
+   *      Entity enemy = new Entity();
+   *      enemy.setPosition(GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_WIDTH, GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_HEIGHT);
+   *      enemy.setColor(Color.BLUE);
+   *
+   *      Vector2D velocity = GameUtility.computeRandomVelocity();
+   *      velocity.scaleThisVector(ENEMY_SPEED);
+   *      enemy.setVelocity(velocity);
+   *
+   *      addEnemy(enemy);
    */
-  public void addEnemy()
+  public void addRandomEnemy()
   {
     Entity enemy = new Entity();
     enemy.setEntityType(GameEngineConstants.EntityTypes.ENEMY);
@@ -84,10 +111,10 @@ public class AvoidTheSquare extends GameEngine
   }
   
   /*
-   * STEP 3: Calling the addEnemy() method.
+   * STEP 3: Calling the addRandomEnemy() method.
    * 
-   * a) Add a call to the new method from STEP 2 in the method userGameInit(). When this method is called by the game engine, 
-   *    it will call the method addEnemy() and one enemy will be added to the enemy list to be displayed.
+   * a) Add a call for the new method from STEP 2 to the method body userGameInit(). When this method is called by the game 
+   *    engine, it will call the method addRandomEnemy() and one enemy will be added to the enemy list to be displayed.
    * b) Build this project and run it. The game screen should start displaying the player entity (a red square) and an enemy
    *    square (a blue square) moving in a random direction.
    *    
@@ -115,7 +142,7 @@ public class AvoidTheSquare extends GameEngine
     keyUpPressed = false;
     keyDownPressed = false;
     
-    addEnemy();
+    addRandomEnemy();
   }
 
   public void userGameStart()

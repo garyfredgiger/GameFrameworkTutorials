@@ -10,6 +10,15 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Tutorial 1: Creating an Empty Game Project
+ * 
+ * The steps for this tutorial are contained in the comments of this and the other project source files.
+ * 
+ *   This source file contains tutorial steps 3, 4, 5, 6, 7, 8, 9 and 10.
+ *   
+ */
+
 /*
  * STEP 3: Creating the Applet that will contain the game. 
  * 
@@ -47,7 +56,7 @@ import java.awt.event.KeyListener;
  *   import java.awt.Graphics;
  *
  */
-public class AvoidTheSquareTutorial extends Applet implements KeyListener
+public class AvoidTheSquareTutorial1 extends Applet implements KeyListener
 {
   /*
    * STEP 5: Adding Instance Variables to the Applet Class

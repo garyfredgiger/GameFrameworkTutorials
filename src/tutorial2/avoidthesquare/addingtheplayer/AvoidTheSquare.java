@@ -8,6 +8,15 @@ import game.framework.entities.Entity;
 import game.framework.interfaces.IRender;
 import game.framework.utilities.GameUtility;
 
+/**
+ * Tutorial 2: Adding the Player Entity
+ * 
+ * The steps for this tutorial are contained in the comments of this and the other project source files.
+ * 
+ *   This source file contains tutorial steps 1, 2, 3, 4, 5, 6, 7 and 8.
+ *   
+ */
+
 /*
  * STEP 1:
  * 

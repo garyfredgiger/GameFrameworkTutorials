@@ -10,6 +10,15 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Tutorial 2: Adding the Player Entity
+ * 
+ * The steps for this tutorial are contained in the comments of the other project source files.
+ * 
+ *   This source file contains no tutorial steps.
+ *   
+ */
+
 /*
  * This class was created in Tutorial 1
  * 
@@ -17,7 +26,7 @@ import java.awt.event.KeyListener;
  * tutorial1.avoidthesquare.creatinganemptygame to learn how this class was created.
  * 
  */
-public class AvoidTheSquareTutorial extends Applet implements KeyListener
+public class AvoidTheSquareTutorial2 extends Applet implements KeyListener
 {
   private Image             image;
   private Graphics          doubleBuffer;
