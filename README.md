@@ -10,31 +10,39 @@ When you clone this project, make sure you also clone the *[GameFramework](https
 <li>Click on the Projects tab and add the GameFramework project, then click the OK button.</li>
 </ol>
 
-You will find the following packages in this project:
+Note: If you are new to Eclipse and need instructions on how to install and set it up, refer to this link *[here](http://wiki.eclipse.org/Eclipse/Installation)*.
 
-
-
+You will find the following tutorials in this project. Note that the steps for each tutorial are included in each tutorial's source files. When you review the source files for each tutorial, you can review each step, which provides instructions and in some cases an explanation of the respective code.
 
 <dl>
+
 <dt>tutorial1.avoidthesquare.creatinganemptygame</dt>
-<dd>
-This tutorial shows how to create an empty game project uisng the game framework. When you clone this project you will find the steps for this tutorial in the comments. The steps show the progression of how to create an empty game project.
-</dd>
+<dd>This tutorial shows how to create an empty game project using the game framework.</dd>
 
 <dt>tutorial2.avoidthesquare.addingtheplayer</dt>
-<dd>This tutorial shows how to add a player entity that can be moved around on the screen using the arrow keys. When you clone this project, you will find the steps for this tutorial in the comments. The steps show how to add a player entity that can be moved around the screen using the arrow keys.</dd>
+<dd>This tutorial shows how to add a player entity that can be moved around on the screen using the arrow keys.</dd>
 
+</dl>
+
+NOTE: More Tutorials to come as my time permits. Future tutorials will include adding enemies, handling collisions, adding a scoring system and adding game states.
+
+You will find the following examples below.
+
+<dl>
 <dt>examples.game</dt>
 <dd>Contains a sample game that extends the game framework's game engine</dd>
+
 <dt>examples.game.applet</dt>
 <dd>Shows how to deploy the game as an Applet</dd>
+
 <dt>examples.game.japplet</dt>
 <dd>Shows how to deploy the game as a JApplet</dd>
+
 <dt>examples.game.jframe</dt>
 <dd>Shows how to deploy the game as an JFrame</dd>
 </dl>
 
-More Tutorials to come as my time permits.
+
 
 NOTE: I included the eclipse project files (.project and .classpath) in this project so you can simply import this project without having to create a new project from your cloned copy of the code. Some suggest it is not a good idea to include project specific files, but I thought I would be a rebel and do it anyway.
 
