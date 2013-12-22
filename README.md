@@ -22,9 +22,12 @@ You will find the following tutorials in this project. Note that the steps for e
 <dt>tutorial2.avoidthesquare.addingtheplayer</dt>
 <dd>This tutorial shows how to add a player entity that can be moved around on the screen using the arrow keys.</dd>
 
+<dt>tutorial3.avoidthesquare.addingenemies</dt>
+<dd>This tutorial shows how to create and add an enemy entities to the game and also discusses a bit about collisions.</dd>
+
 </dl>
 
-NOTE: More Tutorials to come as my time permits. Future tutorials will include adding enemies, handling collisions, adding a scoring system and adding game states.
+NOTE: More Tutorials to come as my time permits. Future tutorials will include handling collisions, adding a scoring system and adding game states.
 
 You will find the following examples below.
 
