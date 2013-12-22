@@ -25,11 +25,14 @@ You will find the following tutorials in this project. Note that the steps for e
 <dt>tutorial3.avoidthesquare.addingenemies</dt>
 <dd>This tutorial shows how to create and add an enemy entities to the game and also discusses a bit about collisions.</dd>
 
+<dt>tutorial4.avoidthesquare.handlingcollisions</dt>
+<dd>This tutorial shows how to handle collisions between the player entity and an enemy entity.</dd>
+
 </dl>
 
-NOTE: More Tutorials to come as my time permits. Future tutorials will include handling collisions, adding a scoring system and adding game states.
+NOTE: More tutorials to come as my time permits. Future tutorials will include adding game states, adding a scoring system and displaying and manipulating images in games.
 
-You will find the following examples below.
+In addition to the tutorials, you will find the following examples below.
 
 <dl>
 <dt>examples.game</dt>
@@ -44,8 +47,6 @@ You will find the following examples below.
 <dt>examples.game.jframe</dt>
 <dd>Shows how to deploy the game as an JFrame</dd>
 </dl>
-
-
 
 NOTE: I included the eclipse project files (.project and .classpath) in this project so you can simply import this project without having to create a new project from your cloned copy of the code. Some suggest it is not a good idea to include project specific files, but I thought I would be a rebel and do it anyway.
 
