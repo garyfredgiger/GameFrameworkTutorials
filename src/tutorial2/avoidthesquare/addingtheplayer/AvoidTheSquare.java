@@ -257,7 +257,10 @@ public class AvoidTheSquare extends GameEngine
       return;
     }
 
-    GameUtility.warp(entity);
+    // NOTE: screenWidth and screenHeight are defined in the GameEngine class. If the default constructor is used
+    //       these variables are assigned the default values DEFAULT_CANVAS_WIDTH and DEFAULT_CANVAS_HEIGHT that
+    //       can be found in the class GameEngineConstants in the package game.framework.utilities.
+    GameUtility.warp(entity, screenWidth, screenHeight);
   }
 
   @Override

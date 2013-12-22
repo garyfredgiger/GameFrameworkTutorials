@@ -64,7 +64,7 @@ public class GameDemo extends GameEngine
   private boolean             addEntity;
   private boolean             removeEntity;
 
-  // Bookkepping variables
+  // Book kepping variables
   private int                 numCollisions;
 
   public GameDemo(IRender renderer)
@@ -106,7 +106,7 @@ public class GameDemo extends GameEngine
       return;
     }
 
-    GameUtility.warp(entity);
+    GameUtility.warp(entity, screenWidth, screenHeight);
   }
 
   @Override
