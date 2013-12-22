@@ -1,8 +1,10 @@
 package tutorial4.avoidthesquare.handlingcollisions;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 
 import game.framework.GameEngine;
 import game.framework.entities.Entity;
@@ -16,7 +18,7 @@ import game.framework.utilities.GameUtility;
  * 
  * The steps for this tutorial are contained in the comments of this and the other project source files.
  * 
- *   This source file contains tutorial steps 1, 2, 3, 4 and 5.
+ *   This source file contains tutorial steps 1, 2, 3, 4, 5 and 6.
  *   
  */
 
@@ -325,9 +327,69 @@ public class AvoidTheSquare extends GameEngine
   public void userGamePreUpdate()
   {}
 
+  /*
+   * STEP 6: Displaying instructions to the display  
+   * 
+   * To add a final touch to this demo, instructions can be displayed to the screen for the player.
+   * 
+   * a) Add a local string variable and assign it instructions regarding the 'r' key to reset the 
+   *    player entity after a collision as shown below.
+   *    
+   *      String instructionMsg = "Press 'r' to Reset the Player Entity after a Collision.";
+   *      
+   * b) Before a string can be displayed the font and color must be defined. Create a new local 
+   *    font variable as shown below. In this tutorial we are using the Font constructor where the
+   *    font type, style and size should be defined.  
+   *    
+   *      g.setFont(new Font("Courier", Font.PLAIN, 18));
+   *      
+   * c) Set the color of the font to white.
+   * d) Given the size of the font and the length of the string, it would be nice to know the dimensions
+   *    of this string so that it can be centered on the screen when displaying. To do this we can use the 
+   *    graphics object to get the metric of the font. The following call to getFontMetrics().getStringBounds() 
+   *    can be performed to get the metrics of the font given the font size and string length. Pass this method 
+   *    the string and the graphics object.
+   *    
+   *      Rectangle2D boundsExitGame = g.getFontMetrics().getStringBounds(instructionMsg, g);
+   *    
+   *    Note that the font size should be defined and set first before making the call to the method
+   *    getFontMetrics().getStringBounds(). Setting the font after the call to this method could generate the
+   *    wrong dimensions, which could result in the string being displayed in the wrong place on the screen.
+   * e) The last step is to display the string using the graphics object. the graphics object has a method called 
+   *    drawString(). This method has a few different overloaded types. The version we will be using only requires 
+   *    the string and the x-y coordinates of where to draw the string. This brings up the next issue, where do we
+   *    draw the string? Given that we already have the screen width defined (accessible through the game engine 
+   *    variable screenWidth) and the dimensions of the string (the width and height), we can position the string
+   *    where we want so that it is centered along the horizontal, the vertical or both. In this example we want to
+   *    center the string along the horizontal and place it near the top of the screen. Given the screen width and
+   *    string width, the x coordinate of the string can be computed as follows:
+   *    
+   *      (screenWidth - boundsExitGame.getWidth()) / 2)
+   *      
+   *    Since we want to position the string near the top of the screen, we need to do is multiply the screen height 
+   *    by a scaling factor (in this case 0.20). Why do we multiply the screen height by a scaling factor and simply
+   *    not assign the height as a fixed number (e.g., 150)? Well, if at some point in the future we decide to change
+   *    the dimensions of the game screen, the position will scale with the new screen height, thus not having to change
+   *    the parameters in the draw screen method. If a fixed width was specified, then this value would need to be
+   *    changed if the screen dimensions were altered in the future. Add the following line to display the string to
+   *    screen. Not that our x and y value may produce a result of type double and the draw string method only accepts
+   *    coordinates of type int. Therefore we need to type cast the results of our computed x and y coordinates.
+   *    
+   *      g.drawString(instructionMsg, (int) ((screenWidth - boundsExitGame.getWidth()) / 2), (int) (screenHeight * 0.20));
+   *    
+   * f) Run the game and you should now see the instructions displayed on the screen regarding the 'r' key.
+   * 
+   */
   @Override
   public void userGamePreDraw(Graphics2D g) // Changed from graphics
-  {}
+  {
+    String instructionMsg = "Press 'r' to Reset the Player Entity after a Collision.";
+    
+    g.setFont(new Font("Courier", Font.PLAIN, 18));
+    g.setColor(Color.WHITE);
+    Rectangle2D boundsExitGame = g.getFontMetrics().getStringBounds(instructionMsg, g);
+    g.drawString(instructionMsg, (int) ((screenWidth - boundsExitGame.getWidth()) / 2), (int) (screenHeight * 0.20));
+  }
 
   @Override
   public void userGamePostDraw(Graphics2D g) // Changed from graphics
