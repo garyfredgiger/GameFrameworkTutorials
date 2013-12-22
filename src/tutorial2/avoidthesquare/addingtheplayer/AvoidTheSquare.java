@@ -55,7 +55,7 @@ public class AvoidTheSquare extends GameEngine
   /*
    * Part of STEP 7b
    */
-  private final double PLAYER_VELOCITY = 100;                                                                                                                                                // This seems to be a good speed for moving the player's ship is space invaders.
+  private final double PLAYER_SPEED = 100; 
 
   /*
    * STEP 4:
@@ -107,10 +107,10 @@ public class AvoidTheSquare extends GameEngine
    * STEP 7:
    * 
    * a) Add two local variables to this method representing the X and Y components of the velocity.
-   * b) Add a constant PLAYER_VELOCITY to this class (scroll to the top) that represents the players velocity 
+   * b) Add a constant PLAYER_SPEED to this class (scroll to the top) that represents the players velocity 
    * c) Add conditions to handle each of the input state variables. For each condition add the respective
    *    velocity representing the motion in that direction (e.g., if the input state variable keyLeftPressed
-   *    is true, then add the PLAYER_VELOCITY to the local variable representing the y component of the player's
+   *    is true, then add the PLAYER_SPEED to the local variable representing the y component of the player's
    *    velocity).
    *    
    *    NOTE: Up and left motion are represented as negative values where as down and right motion are
@@ -126,22 +126,22 @@ public class AvoidTheSquare extends GameEngine
 
     if (keyLeftPressed)
     {
-      deltaX -= PLAYER_VELOCITY;
+      deltaX -= PLAYER_SPEED;
     }
 
     if (keyRightPressed)
     {
-      deltaX += PLAYER_VELOCITY;
+      deltaX += PLAYER_SPEED;
     }
 
     if (keyUpPressed)
     {
-      deltaY -= PLAYER_VELOCITY;
+      deltaY -= PLAYER_SPEED;
     }
 
     if (keyDownPressed)
     {
-      deltaY += PLAYER_VELOCITY;
+      deltaY += PLAYER_SPEED;
     }
 
     getPlayer().setVelocity(deltaX, deltaY);
