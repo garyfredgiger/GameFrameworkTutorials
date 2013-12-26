@@ -77,8 +77,7 @@ public class AvoidTheSquare extends GameEngine
    *      getPlayer().setPosition(screenWidth / 2, screenHeight / 2);
    *      
    *    Note that the variables screenWidth and screenHeight are protected variables defined in the
-   *    GameEngine class and are assign their respective value when the GameEngine class is instantiated.
-   *    When the gam
+   *    GameEngine class and are assigned their respective value when the GameEngine class is instantiated.
    *
    */
   public void userGameInit()
