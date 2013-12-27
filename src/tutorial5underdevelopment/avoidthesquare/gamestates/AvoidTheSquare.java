@@ -82,9 +82,11 @@ public class AvoidTheSquare extends GameEngine
    * d) Add the time variables that are assigned the time stamp of when the game start and game over states are
    *    entered. The time recorded in these variables plus the respective time interval will be compared to the
    *    current time. When the current time exceeds this sum, a transition will be made to the next state.   
-   * e) Add the boolean variable for the user specified game start event. This variable will be set to true when
-   *    the user presses the respective key (e.g., the space bar) to begin the game.
-   * f) Add the constant representing the number of enemies that will exist in the game.
+   * e) Add the boolean variable for the user specified game start event. This variable will be 
+   *    set to true when the user presses the respective key (e.g., the space bar) to begin the game.
+   * f) Add the boolean variable to record whether the player is dead or not. When the player dies (i.e., collides
+   *    with an enemy entity) this variable will be set, which will start the transition to the GAMEOVER state.
+   * g) Add the constant representing the number of enemies that will exist in the game.
    */
 
   // Step 1a - String messages used throughout the game on various screens.
@@ -107,17 +109,15 @@ public class AvoidTheSquare extends GameEngine
   private long                stateGameOverTime;
   private long                stateGameStartTime;
 
-  // Stop 1e - Stores current input state for user event state transitions
+  // Step 1e - Stores current input state for user event state transitions
   private boolean             startGameRequest;
-  //private boolean             pauseGameRequest;
-
-  // Step 1f - The number of enemies that will exist in the game.
+ // private boolean             pauseGameRequest;
+  
+  // Step 1f - Indicates if the player is dead or alive.
+  private boolean             playerDead;
+  
+  // Step 1g - The number of enemies that will exist in the game.
   private static final int    STARTING_NUMBER_OF_ENEMIES = 10;
-
-  public AvoidTheSquare(IRender renderer)
-  {
-    super(renderer);
-  }
 
   private final double ENEMY_SPEED  = 75;
   private final double PLAYER_SPEED = 100;
@@ -130,6 +130,11 @@ public class AvoidTheSquare extends GameEngine
 
   // This will go away
   //private boolean      playerResetRequest = false;
+
+  public AvoidTheSquare(IRender renderer)
+  {
+    super(renderer);
+  }
 
   public void addRandomEnemy()
   {
@@ -210,13 +215,24 @@ public class AvoidTheSquare extends GameEngine
     //addRandomEnemy();
   }
 
+  /*
+   * STEP 12 - Resetting the Player Dead Flag
+   * 
+   * When the game is initialzed and when a new game starts, the flag playerDead will need to be cleared.
+   * 
+   * a) Add the line to clear the player dead flag to the body of method resetPlayer().
+   * 
+   */
   public void resetPlayer()
   {
+    // Step 1a - Clearing the playerDead flag.
+    playerDead = false;
+    
     keyLeftPressed = false;
     keyRightPressed = false;
     keyUpPressed = false;
     keyDownPressed = false;
-
+    
     getPlayer().reset();
 
     /*
@@ -232,9 +248,32 @@ public class AvoidTheSquare extends GameEngine
   public void userGameShutdown()
   {}
 
+  /* (This step is not complete yet)
+   * STEP 8 - Processing User Key Presses
+   * 
+   * This step will process the user input flags that were set in the method gameKeyPressed().
+   * 
+   * a) Again, add a switch statement based on the state variable, the same as in both methods
+   *    gameKeyPressed() and gameKeyReleased().
+   * b) Add cases to the switch statement to handle game states INTRODUCTION and PLAYING.
+   * c) In the INTRODUCTION case add a condition statement to check if the flag startGameRequest is true.
+   *    This conditional statement will begin the transition into the state GAME_START.
+   * d) In the block of the conditional statement, please add logic to transition into the state GAME_START.
+   *    This will involve first setting the flag startGameRequest to false (We do not want to execute this 
+   *    block again the next time the method is entered). Next, the current time will need to be recorded 
+   *    in the variable stateGameStartTime. This time will be used to determine how long the game will remain
+   *    in the state GAME_START before transitioning into the PLAYING state, which will be checked in the
+   *    method userGamePreUpdate(). Lastly, assign the state GAME_START to the state variable. Now, when the 
+   *    current game state is INTRODUCTION and the user presses the space bar, the flag startGameRequest is set
+   *    in the method gameKeyPressed(). When the method userProcessInput() is entered, the condition statement
+   *    in the INTRODUCTION case will be executed and the transition from the state INTRODUCTION to GAME_START
+   *    will take place.
+   * e) In the PLAYING case,  
+   * 
+   */
   public void userProcessInput()
   {
-    // This will be taken out for this tutorial
+    // This block (which was added in tutorial 4) will be removed since it will no longer be needed in this tutorial.
     //    if (playerResetRequest)
     //    {
     //      playerResetRequest = false;
@@ -289,24 +328,54 @@ public class AvoidTheSquare extends GameEngine
   }
 
   /*
-   * STEP 6 - 
+   * STEP 6 - Adding key handlers for different states (Part 1)
+   * 
+   * Key handlers need to be added for the different game states. For this game the user will need to enter
+   * different input for the INTRODUCTION state and the PLAYING state. For the INTRODUCTION state the only input
+   * the user can provide is the Space Bar to begin the game. When this happens the game state will transition
+   * from INTRODUCTION to GAME_START to PLAYING. When the game state is PLAYING the only input the user can enter
+   * are the arrow keys to move the player's entity. To be able to handle different types of input for different
+   * game states, a switch statement will be used.  
+   *
+   * a) Add a switch statement based on the state variable, which is the enumerated type GameEngineConstants.GameState.
+   * b) Add cases to the switch statement to handle the game states INTRODUCTION and PLAYING.
+   * c) In the INTRODUCTION case statement, add a conditional statement that will check when the space bar is pressed.
+   *    Note, this method gameKeyPressed() is called from within the method keyPressed(), which is part of the
+   *    KeyListener interface, which is implemented by the Applet class AvoidTheSquareTutorial5. When the Applet
+   *    detects a key press the method keyPressed() is called, which then calls this method, gameKeyPressed(). The
+   *    parameter keyCode is the passed in from the event handler that contains the ASCII code of the pressed key.
+   *    The value stored in keyCode will be compared to the constant for the space bar (KeyEvent.VK_SPACE). When the
+   *    space bar is pressed the block of the conditional statement will be executed.
+   * d) Inside of the conditional statement block, set the flag stateGameRequest to true. This flag will be checked
+   *    in the method userProcessInput() to handle the user's request to start the game. 
+   * e) In the PLAYING case statement, add the logic to handle the arrow key movement. Note that this logic was added
+   *    to this method back in tutorial 2. This logic also consisted of a case statement that operated on the keyCode
+   *    parameter. Simply copy this switch statement block from the method gameKeyPressed() in tutorial 2 and paste it
+   *    in the body of the PLAYING case below. 
+   *
    */
   public void gameKeyPressed(int keyCode)
   {
+    // Step 6a - Switch statement to handle user input for different game states.
     switch (this.state)
     {
+      // Step 6b - Adding the INTRODUCTION case 
       case INTRODUCTION:
 
+        // Step 6c - Adding the conditional statement to handle the users request to begin the game.
         if (keyCode == KeyEvent.VK_SPACE)
         {
+          // Step 6d - Setting the start game request flag to true.
           startGameRequest = true;
         }
 
         break;
       
+      // Step 6b - Adding the PLAYING case 
       case PLAYING:
 
-        //System.out.println("gameKeyPressed: " + keyCode);
+        // Step 6e - Adding the logic to handle the arrow keys. Note, this code was copied from the method 
+        //           gameKeyPressed() from tutorial 2. 
         switch (keyCode)
         {
           case KeyEvent.VK_UP:
@@ -333,14 +402,31 @@ public class AvoidTheSquare extends GameEngine
   }
 
   /*
-   * STEP 7 - 
+   * STEP 7 - Adding key handlers for different states (Part 2)
+   *
+   * a) Add a switch statement based on the state variable as you did in STEP 6.
+   * b) Add the case to the switch statement to handle the game state PLAYING. Note that there is no key handler
+   *    for the game state INTRODUCTION. This is because when the startGameRequest flag is set to true in the 
+   *    method gameKeyPressed(), logic for this flag is processed in the method userProcessInput(), which clears
+   *    this flag. 
+   * c) In the PLAYING case statement, add the logic to handle the arrow key movement. Note that this logic was added
+   *    to this method back in tutorial 2. This logic also consisted of a case statement that operated on the keyCode
+   *    parameter. Simply copy this switch statement block from the method gameKeyReleased() in tutorial 2 and paste it
+   *    in the body of the PLAYING case below. Make sure the case statement only handles the arrow keys. In tutorial 2, 
+   *    there was the case where the r key was also handled in the gameKeyReleased() method, but this handler can be
+   *    removed. 
+   * 
    */
   public void gameKeyReleased(int keyCode)
   {
+    // Step 6a - Switch statement to handle user input for different game states.
     switch (this.state)
     {      
+      // Step 6b - Adding the PLAYING case 
       case PLAYING:
 
+        // Step 6c - Adding the logic to handle the arrow keys. Note, this code was copied from the method 
+        //           gameKeyReleased() from tutorial 2. 
         switch (keyCode)
         {
           case KeyEvent.VK_UP:
@@ -359,7 +445,7 @@ public class AvoidTheSquare extends GameEngine
             keyRightPressed = false;
             break;
 
-        // Will be removed from this tutorial
+        // This code (from tutorial 2) can be removed for this tutorial
         //          case KeyEvent.VK_R:
         //            playerResetRequest = true;
         //            break;
@@ -374,6 +460,21 @@ public class AvoidTheSquare extends GameEngine
   public void gameKeyTyped(int keyCode)
   {}
 
+  /* (NOTE: This step might need to go before the step that sets this flag in the userGamePreUpdate())
+   * STEP 11 - Setting the Player Dead Flag
+   * 
+   * Why do we have a seperate flag indicating when the player is dead when there is the alive flag in the 
+   * entity class (accessible via the isAlive() method)? Well, the alive flag in the Entity class can be used 
+   * to transition to the GAMEOVER state. However, when we give the player multiple lives (three lives in most
+   * classic arcade games), there needs to be a way to differentiate when the player has just been killed (e.g.,
+   * clearing the alive flag when the player entity collides with an enemy entity) and when the player is
+   * actually dead (e.g., no more lives). In this version of the game the player only has one life. In later 
+   * tutorials that expand upon this game, the player will be given three lives when the game starts. In this
+   * situation the playerDead flag will only be set to true when there are no more player lives, which will then
+   * be used to transition to the GAMEOVER state. Also note that additional logic will be added to this method in
+   * future tutorials that when the player is killed due to a collision, the playerDead flag will only be set when
+   * the player has no more lives. 
+   */
   @Override
   public void userHandleEntityCollision(Entity entity1, Entity entity2)
   {
@@ -384,14 +485,14 @@ public class AvoidTheSquare extends GameEngine
       if (entity2.getEntityType() == GameEngineConstants.EntityTypes.ENEMY)
       {
         entity1.kill();
-        stateGameOverTime = System.currentTimeMillis();
-        state = GameEngineConstants.GameState.GAMEOVER;
+        playerDead = true;
       }
     }
   }
 
   /*
-   * STEP B - Handling the updating of each entity
+   * (NOTE: THIS STEP IS NOT COMPLETED YET) 
+   * STEP 10 - Handling the updating of each entity
    * 
    * The condition for checking if the current entity is alive is the same as before. If the entity
    * is not alive, simply return to the caller.
@@ -423,7 +524,8 @@ public class AvoidTheSquare extends GameEngine
   }
 
   /*
-   * STEP X: Adding switch Statement to Handle Different Game States
+   * (NOTE: THIS STEP IS NOT COMPLETED YET) 
+   * STEP 9: Adding switch Statement to Handle Different Game States
    * 
    * In this step, the following states will be added INTRODUCTION, GAME_START, PLAYING, PAUSED and GAMEOVER.
    * The following transitions will take place between the different states:
@@ -460,6 +562,16 @@ public class AvoidTheSquare extends GameEngine
 
         break;
 
+      case PLAYING:
+
+        if (playerDead)
+        {
+          stateGameOverTime = System.currentTimeMillis();
+          state = GameEngineConstants.GameState.GAMEOVER;
+        }
+
+        break;
+        
       case GAMEOVER:
 
         if (System.currentTimeMillis() > (GAME_OVER_INTERVAL + stateGameOverTime))
@@ -488,7 +600,7 @@ public class AvoidTheSquare extends GameEngine
    * userGamePostDraw().
    * 
    * a) The code that was added to this method in tutorial 4 can be removed since it will no longer be used.
-   * b) Add a switch statement that operates on the enumerated type GameEngineConstants.GameState. This switch 
+   * b) Add a switch statement based on the enumerated type GameEngineConstants.GameState. This switch 
    *    statement will handle the display logic for different game states.
    * c) Add cases to the body of the switch statement to handle the display logic for the game states 
    *    INTRODUCTION and GAME_START.
