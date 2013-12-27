@@ -28,6 +28,9 @@ You will find the following tutorials in this project. Note that the steps for e
 <dt>tutorial4.avoidthesquare.handlingcollisions</dt>
 <dd>This tutorial shows how to handle collisions between the player entity and an enemy entity.</dd>
 
+<dt>tutorial5underdevelopment.avoidthesquare.gamestates</dt>
+<dd>This tutorial will show how to incorporate different game states into your game. Note that this tutorial is still under development and some steps may be incomplete or missing.</dd>
+
 </dl>
 
 NOTE: More tutorials to come as my time permits. Future tutorials will include adding game states, adding a scoring system and displaying and manipulating images in games.
