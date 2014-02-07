@@ -2,10 +2,13 @@ package tutorial2.avoidthesquare.addingtheplayer;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 
 import game.framework.GameEngine;
-import game.framework.entities.Entity;
+import game.framework.entities.Entity2D;
+import game.framework.entities.shapes.EntityRectangle;
 import game.framework.interfaces.IRender;
+import game.framework.utilities.GameEngineConstants;
 import game.framework.utilities.GameUtility;
 
 /**
@@ -30,8 +33,8 @@ import game.framework.utilities.GameUtility;
  * public abstract void userGameInit();
  * public abstract void userGameStart();
  * public abstract void userGamePreUpdate();
- * public abstract void userGameUpdateEntity(Entity entity);
- * public abstract void userHandleEntityCollision(Entity entity1, Entity entity2);
+ * public abstract void userGameUpdateEntity(Entity2D entity);
+ * public abstract void userHandleEntityCollision(Entity2D entity1, Entity2D entity2);
  * public abstract void userProcessInput();
  * public abstract void userGamePreDraw(Graphics2D g);
  * public abstract void userGamePostDraw(Graphics2D g);
@@ -42,7 +45,7 @@ import game.framework.utilities.GameUtility;
  * 
  * d) Be sure to add the following import commands since some of the implemented methods require these classes:
  * 
- * import game.framework.entities.Entity;
+ * import game.framework.entities.Entity2D;
  * import java.awt.Graphics2D;
  */
 public class AvoidTheSquare extends GameEngine
@@ -82,21 +85,37 @@ public class AvoidTheSquare extends GameEngine
 
   /*
    * STEP 3:
-   * 
-   * a) Prepare the player sprite by setting the visible and alive flags. This can be done by calling the reset method.
-   * 
-   * NOTE: The player entity is already created in the base class and accessible via the getPlayer() method. By default
-   *       the player's visible and alive flags are false. If either the visible or alive flags of an entity are set to
-   *       false, the entity will not be drawn to the screen during the render operation.
-   * 
+   *
+   * a) Prepare the player entity by creating a new shape entity.
+   *
+   * NOTE: The player entity needs to be created from one of the entity sub classes (either and image or 
+   *       shape entity such as rectangle or square). Why? The base entity class (Entity2D) can be 
+   *       instantiated, but its draw() method does not contain any logic and needs to be overridden and 
+   *       implemented by a sub class. When a sub class of the Entity2D class is created and its draw() 
+   *       method defined, it can be added as the player entity by using the method setNewPlayerEntity().
+   *       By default the player's visible and alive flags are true. If the player entity is created, but
+   *       you do not want to display it right away, set either the visible or alive flag to false. If either
+   *       the visible or alive flags of an entity are set to false, the entity will not be drawn to the 
+   *       screen during the render operation.
    */
   public void userGameInit()
   {
     /*
-     * Part of STEP 3a - Make the player entity alive and visible.
+     * Part of STEP 3a - Adding the player entity.
+     * 
+     * Create a new instance of the class EntityRectangle and...
+     * 
+     *    1) Give it the entity type PLAYER from the Enum EntityTypes
+     *    2) Define its dimensions 16 by 16 for its width and height respectively
+     *    3) Set its position to the center of the screen.
+     * 
+     * NOTE: The visible and alive flags are true by default and the default color of a EntityShape (rectangle,
+     *       line or oval) is RED.
      */
-    getPlayer().reset();
-
+    EntityRectangle player = new EntityRectangle(GameEngineConstants.EntityTypes.PLAYER, 16, 16);
+    player.setPosition(GameEngineConstants.DEFAULT_CANVAS_WIDTH/2, GameEngineConstants.DEFAULT_CANVAS_HEIGHT/2);
+    this.setNewPlayerEntity(player);
+    
     /*
      * Part of STEP 4b - Initializing the user input state variables.
      */
@@ -226,7 +245,7 @@ public class AvoidTheSquare extends GameEngine
   {}
 
   @Override
-  public void userHandleEntityCollision(Entity entity1, Entity entity2)
+  public void userHandleEntityCollision(Entity2D entity1, Entity2D entity2)
   {}
 
   /*
@@ -259,7 +278,7 @@ public class AvoidTheSquare extends GameEngine
    *          entering 800 for the Width and 600 for the Height.
    */
   @Override
-  public void userGameUpdateEntity(Entity entity)
+  public void userGameUpdateEntity(Entity2D entity)
   {
     if (!entity.isAlive())
     {

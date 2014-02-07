@@ -5,7 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import game.framework.GameEngine;
-import game.framework.entities.Entity;
+import game.framework.entities.Entity2D;
+import game.framework.entities.shapes.EntityRectangle;
 import game.framework.interfaces.IRender;
 import game.framework.primitives.Vector2D;
 import game.framework.utilities.GameEngineConstants;
@@ -98,7 +99,7 @@ public class AvoidTheSquare extends GameEngine
    */
   public void addRandomEnemy()
   {
-    Entity enemy = new Entity();
+    EntityRectangle enemy = new EntityRectangle();
     enemy.setEntityType(GameEngineConstants.EntityTypes.ENEMY);
     enemy.setPosition(GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_WIDTH, GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_HEIGHT);
     enemy.setColor(Color.BLUE);
@@ -135,7 +136,9 @@ public class AvoidTheSquare extends GameEngine
    */
   public void userGameInit()
   {
-    getPlayer().reset();
+    EntityRectangle player = new EntityRectangle(GameEngineConstants.EntityTypes.PLAYER, 16, 16);
+    player.setPosition(GameEngineConstants.DEFAULT_CANVAS_WIDTH/2, GameEngineConstants.DEFAULT_CANVAS_HEIGHT/2);
+    this.setNewPlayerEntity(player);
 
     keyLeftPressed = false;
     keyRightPressed = false;
@@ -228,7 +231,7 @@ public class AvoidTheSquare extends GameEngine
   {}
 
   @Override
-  public void userHandleEntityCollision(Entity entity1, Entity entity2)
+  public void userHandleEntityCollision(Entity2D entity1, Entity2D entity2)
   {
     /*
      * The line added as instructed in the discussion about collisions from STEP 3.
@@ -237,7 +240,7 @@ public class AvoidTheSquare extends GameEngine
   }
 
   @Override
-  public void userGameUpdateEntity(Entity entity)
+  public void userGameUpdateEntity(Entity2D entity)
   {
     if (!entity.isAlive())
     {

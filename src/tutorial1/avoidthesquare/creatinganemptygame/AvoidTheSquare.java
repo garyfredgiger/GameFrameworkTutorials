@@ -3,7 +3,7 @@ package tutorial1.avoidthesquare.creatinganemptygame;
 import java.awt.Graphics2D;
 
 import game.framework.GameEngine;
-import game.framework.entities.Entity;
+import game.framework.entities.Entity2D;
 import game.framework.interfaces.IRender;
 
 /**
@@ -73,11 +73,11 @@ public class AvoidTheSquare extends GameEngine
   {}
 
   @Override
-  public void userGameUpdateEntity(Entity entity)
+  public void userGameUpdateEntity(Entity2D entity)
   {}
 
   @Override
-  public void userHandleEntityCollision(Entity entity1, Entity entity2)
+  public void userHandleEntityCollision(Entity2D entity1, Entity2D entity2)
   {}
 
   @Override

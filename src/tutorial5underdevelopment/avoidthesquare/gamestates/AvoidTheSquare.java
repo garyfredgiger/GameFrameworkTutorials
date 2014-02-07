@@ -7,7 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 
 import game.framework.GameEngine;
-import game.framework.entities.Entity;
+import game.framework.entities.Entity2D;
+import game.framework.entities.shapes.EntityRectangle;
 import game.framework.interfaces.IRender;
 import game.framework.primitives.Vector2D;
 import game.framework.utilities.GameEngineConstants;
@@ -138,7 +139,7 @@ public class AvoidTheSquare extends GameEngine
 
   public void addRandomEnemy()
   {
-    Entity enemy = new Entity();
+    EntityRectangle enemy = new EntityRectangle();
     enemy.setPosition(GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_WIDTH, GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_HEIGHT);
     enemy.setColor(Color.BLUE);
 
@@ -191,6 +192,11 @@ public class AvoidTheSquare extends GameEngine
    */
   public void userGameInit()
   {
+    // Create and add the player entity.
+    EntityRectangle player = new EntityRectangle(GameEngineConstants.EntityTypes.PLAYER, 16, 16);
+    player.setPosition(GameEngineConstants.DEFAULT_CANVAS_WIDTH/2, GameEngineConstants.DEFAULT_CANVAS_HEIGHT/2);
+    this.setNewPlayerEntity(player);
+
     // Step 3a - This line (added to this method from tutorial 4) can be removed since it will be called from another place in this game.
     //resetPlayer();
 
@@ -476,7 +482,7 @@ public class AvoidTheSquare extends GameEngine
    * the player has no more lives. 
    */
   @Override
-  public void userHandleEntityCollision(Entity entity1, Entity entity2)
+  public void userHandleEntityCollision(Entity2D entity1, Entity2D entity2)
   {
     System.out.println("A collision occured!");
 
@@ -504,7 +510,7 @@ public class AvoidTheSquare extends GameEngine
    *    of the screen.
    */
   @Override
-  public void userGameUpdateEntity(Entity entity)
+  public void userGameUpdateEntity(Entity2D entity)
   {
     if (!entity.isAlive())
     {

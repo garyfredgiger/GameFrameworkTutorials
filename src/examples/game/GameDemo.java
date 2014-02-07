@@ -7,7 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 
 import game.framework.GameEngine;
-import game.framework.entities.Entity;
+import game.framework.entities.Entity2D;
+import game.framework.entities.shapes.EntityRectangle;
 import game.framework.interfaces.IRender;
 import game.framework.primitives.Vector2D;
 import game.framework.utilities.GameEngineConstants;
@@ -76,8 +77,10 @@ public class GameDemo extends GameEngine
   public void userGameInit()
   {
     // Make the player entity alive and visible.
-    // NOTE: By default the player's visible and alive flags are false.
-    getPlayer().reset();
+    // NOTE: By default the player's visible and alive flags are true.
+    EntityRectangle player = new EntityRectangle(GameEngineConstants.EntityTypes.PLAYER, 16, 16);
+    player.setPosition(GameEngineConstants.DEFAULT_CANVAS_WIDTH/2, GameEngineConstants.DEFAULT_CANVAS_HEIGHT/2);
+    this.setNewPlayerEntity(player);
 
     // Enable the ability for the game engine to remove any dead enemy entities from the enemy entity list 
     removeDeadEnemiesFromEntityList();
@@ -98,7 +101,7 @@ public class GameDemo extends GameEngine
   }
 
   @Override
-  public void userGameUpdateEntity(Entity entity)
+  public void userGameUpdateEntity(Entity2D entity)
   {
     // Check if the entities are alive and if so, check if they need to be warped on the screen
     if (!entity.isAlive())
@@ -110,7 +113,7 @@ public class GameDemo extends GameEngine
   }
 
   @Override
-  public void userHandleEntityCollision(Entity entity1, Entity entity2)
+  public void userHandleEntityCollision(Entity2D entity1, Entity2D entity2)
   {
     // If the player entity collides with another entity, kill the other entity
     switch (entity1.getEntityType())
@@ -288,9 +291,10 @@ public class GameDemo extends GameEngine
    */
   public void addEntity()
   {
-    Entity entity = new Entity();
+    EntityRectangle entity = new EntityRectangle();
     entity.setEntityType(GameEngineConstants.EntityTypes.ENEMY);
     entity.setPosition(GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_WIDTH, GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_HEIGHT);
+
     entity.setColor(colors[GameUtility.random.nextInt(colors.length)]);
 
     Vector2D velocity = GameUtility.computeRandomVelocity();
