@@ -176,28 +176,32 @@ public class AvoidTheSquare extends GameEngine
    * so that when the game is executed, it will enter the defined starting state. In this tutorial
    * the starting state will be INTRODUCTION.
    * 
-   * a) Given the body of method userGameInit() from tutorial 4, remove the following lines of code.
+   * a) Add the line of code that make the player invisible when it is created.
+   * b) Given the body of method userGameInit() from tutorial 4, remove the following lines of code.
    * 
    *      resetPlayer();
    *      addRandomEnemy();
    * 
-   * b) Add a line that assigns the starting state of INTRODUCTION to the state variable. NOTE: The 
+   * c) Add a line that assigns the starting state of INTRODUCTION to the state variable. NOTE: The 
    *    state variable is defined in the GameEngine class and is of type GameEngineConstants.GameState.
-   * c) Initialize the variable startGameRequest to false. If this variable is set to true when the game
+   * d) Initialize the variable startGameRequest to false. If this variable is set to true when the game
    *    begins, the game state will immediately change from INTRODUCTION to GAME_START. The variable
    *    startGameRequest is the flag that is set when the user chooses to start the game (in this case
    *    by pressing the space bar, which the logic will be added later in this tutorial).
-   * d) Initialize the variables stateGameOverTime and stateGameStartTime to zero.
+   * e) Initialize the variables stateGameOverTime and stateGameStartTime to zero.
    * 
    */
   public void userGameInit()
   {
     // Create and add the player entity.
     EntityRectangle player = new EntityRectangle(GameEngineConstants.EntityTypes.PLAYER, 16, 16);
-    player.setPosition(GameEngineConstants.DEFAULT_CANVAS_WIDTH/2, GameEngineConstants.DEFAULT_CANVAS_HEIGHT/2);
+
+    // Step 3a: When the player entity is created, make it invisible since we do not want to display it until the game begins. 
+    player.setVisible(false);
+
     this.setNewPlayerEntity(player);
 
-    // Step 3a - This line (added to this method from tutorial 4) can be removed since it will be called from another place in this game.
+    // Step 3b - This line (added to this method from tutorial 4) can be removed since it will be called from another place in this game.
     //resetPlayer();
 
     // NOTE: These lines were added is tutorial 2.
@@ -206,25 +210,25 @@ public class AvoidTheSquare extends GameEngine
     keyUpPressed = false;
     keyDownPressed = false;
 
-    // Step 3b - Defining the initial state when the game begins. 
+    // Step 3c - Defining the initial state when the game begins. 
     this.state = GameEngineConstants.GameState.INTRODUCTION;
 
-    // Step 3c -Initializing the input state variables 
+    // Step 3d -Initializing the input state variables 
     startGameRequest = false;
     //pauseGameRequest = false; // TODO: Add this step to Tutorial 6
 
-    // Step 3d - Initialize the timed event state transitions variables
+    // Step 3e - Initialize the timed event state transitions variables
     stateGameOverTime = 0;
     stateGameStartTime = 0;
 
-    // Step 3a - This line (added to this method from tutorial 4) can also be removed since it is being called from within the method addEnemiesToGame().
+    // Step 3b - This line (added to this method from tutorial 4) can also be removed since it is being called from within the method addEnemiesToGame().
     //addRandomEnemy();
   }
 
   /*
    * STEP 12 - Resetting the Player Dead Flag
    * 
-   * When the game is initialzed and when a new game starts, the flag playerDead will need to be cleared.
+   * When the game is initialized and when a new game starts, the flag playerDead will need to be cleared.
    * 
    * a) Add the line to clear the player dead flag to the body of method resetPlayer().
    * 
@@ -241,10 +245,6 @@ public class AvoidTheSquare extends GameEngine
     
     getPlayer().reset();
 
-    /*
-     * Optional line of code to add if player is to start in center of screen.
-     * In this tutorial we decided to use this line.
-     */
     getPlayer().setPosition(screenWidth / 2, screenHeight / 2);
   }
 

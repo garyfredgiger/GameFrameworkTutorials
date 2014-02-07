@@ -60,33 +60,29 @@ public class AvoidTheSquare extends GameEngine
 
     addEnemy(enemy);
   }
-  
+
   /*
    * STEP 2: Moving Code from Method userGameInit() to a New Method reset()
    * 
    * a) Create a new method with the signature public void resetPlayer() {}
-   * b) Move the call getPlayer().reset(); from the method body userGameInit() to the body of
-   *    the new method resetPlayer().
-   * c) Place a call to the resetPlayer() method in the method body userGameInit().
-   * d) Run the code to ensure that it behaves the same as before. The resetPlayer() method will 
-   *    be called from the userGameInit() method as shown below and when the 'r' key is pressed, 
-   *    which will be the next step in this tutorial.
-   * e) As an optional exercise, an additional line of code can be added to the method resetPlayer()
-   *    that places the player entity at the center of the screen when the resetPlayer method is
-   *    called. The code to do this is shown below.
+   * b) Add the call getPlayer().reset(); to the body of this new method resetPlayer().
+   * c) Move the line of code that sets the player's position from userGameInit() to resetPlayer().
+   *    Remember to change the line from player.setPosition(...) to getPlayer().setPosition(...).
+   *    The resetPlayer() method will be called from the userGameInit() method as shown below.
+   *    Also note that the method resetPlayer() will be called when the player presses the 'r' key
+   *    to reset the player, that is, make the player alive and visible and center the player on 
+   *    the screen again after the player collides with an enemy square.
    *    
-   *      getPlayer().setPosition(screenWidth / 2, screenHeight / 2);
-   *      
-   *    Note that the variables screenWidth and screenHeight are protected variables defined in the
-   *    GameEngine class and are assigned their respective value when the GameEngine class is instantiated.
-   *
+   * NOTE: The variables screenWidth and screenHeight are protected variables defined in the GameEngine 
+   *       class and are assigned their respective value when the GameEngine class is instantiated.
    */
   public void userGameInit()
   {
     EntityRectangle player = new EntityRectangle(GameEngineConstants.EntityTypes.PLAYER, 16, 16);
-    player.setPosition(GameEngineConstants.DEFAULT_CANVAS_WIDTH/2, GameEngineConstants.DEFAULT_CANVAS_HEIGHT/2);
     this.setNewPlayerEntity(player);
 
+    resetPlayer();
+    
     keyLeftPressed = false;
     keyRightPressed = false;
     keyUpPressed = false;
@@ -102,10 +98,7 @@ public class AvoidTheSquare extends GameEngine
   {
     getPlayer().reset();
 
-    /*
-     * Optional line of code to add from step 2e.
-     */
-    //getPlayer().setPosition(screenWidth / 2, screenHeight / 2);
+    getPlayer().setPosition(screenWidth/2, screenHeight/2);
   }
 
   public void userGameStart()
@@ -274,7 +267,7 @@ public class AvoidTheSquare extends GameEngine
    *    {
    *      super.gameDetectCollisions();
    * 
-   *      System.out.println("Overriden gameDetectCollisions()");
+   *      System.out.println("Overridden gameDetectCollisions()");
    *       
    *      // You own collision code can be added here
    *    }

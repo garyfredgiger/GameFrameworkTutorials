@@ -2,8 +2,6 @@ package tutorial2.avoidthesquare.addingtheplayer;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Rectangle2D;
-
 import game.framework.GameEngine;
 import game.framework.entities.Entity2D;
 import game.framework.entities.shapes.EntityRectangle;
@@ -111,11 +109,14 @@ public class AvoidTheSquare extends GameEngine
      * 
      * NOTE: The visible and alive flags are true by default and the default color of a EntityShape (rectangle,
      *       line or oval) is RED.
+     *       
+     * NOTE: The variables screenWidth and screenHeight are protected variables defined in the GameEngine class and are assigned their 
+     *       respective value when the GameEngine class is instantiated.
      */
     EntityRectangle player = new EntityRectangle(GameEngineConstants.EntityTypes.PLAYER, 16, 16);
-    player.setPosition(GameEngineConstants.DEFAULT_CANVAS_WIDTH/2, GameEngineConstants.DEFAULT_CANVAS_HEIGHT/2);
+    player.setPosition(screenWidth/2, screenHeight/2);
     this.setNewPlayerEntity(player);
-    
+
     /*
      * Part of STEP 4b - Initializing the user input state variables.
      */

@@ -28,8 +28,8 @@ import game.framework.interfaces.IRender;
 *  public abstract void userGameInit();
 *  public abstract void userGameStart();
 *  public abstract void userGamePreUpdate();
-*  public abstract void userGameUpdateEntity(Entity entity);
-*  public abstract void userHandleEntityCollision(Entity entity1, Entity entity2);
+*  public abstract void userGameUpdateEntity(Entity2D entity);
+*  public abstract void userHandleEntityCollision(Entity2D entity1, Entity2D entity2);
 *  public abstract void userProcessInput();
 *  public abstract void userGamePreDraw(Graphics2D g);
 *  public abstract void userGamePostDraw(Graphics2D g);
@@ -40,7 +40,7 @@ import game.framework.interfaces.IRender;
 *
 * d) Be sure to add the following import commands since some of the implemented methods require these classes:
 * 
-*    import game.framework.entities.Entity;
+*    import game.framework.entities.Entity2D;
 *    import java.awt.Graphics2D;
 *    
 */

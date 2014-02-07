@@ -48,9 +48,9 @@ public class AvoidTheSquare extends GameEngine
    * STEP 2: Adding a Method Responsible for Adding New Enemies
    * 
    * a) Add a new method named addRandomEnemy with no parameters and of type void
-   * b) Create a new instance of the Entity class and call it enemy.
+   * b) Create a new instance of the EntityRectangle class and call it enemy.
    * c) Set the type of the new enemy entity to ENEMY using the setEntityType() method. The enumerated type
-   *    EntityTypes defined in the class GameEngineConstants defines all of the Entity types. All enemies in 
+   *    EntityTypes defined in the class GameEngineConstants defines all of the EntityRectangle types. All enemies in 
    *    the game must have its type set to ENEMY from the EntityTypes enumeration in order to successfully 
    *    detect collisions between the player and enemies. Collisions will be covered in a later tutorial.
    * d) A position must be assigned to this enemy. Note that the default position of an entity is (0, 0). Rather than
@@ -79,15 +79,15 @@ public class AvoidTheSquare extends GameEngine
    *    entity list in the game engine with a random position and velocity.
    * h) An alternate way to add entities to their respective lists is to use the methods below. 
    * 
-   *      public void addEnemy(Entity entity)
-   *      public void addPlayerShot(Entity entity)
-   *      public void addEnemyShot(Entity entity)
+   *      public void addEnemy(Entity2D entity)
+   *      public void addPlayerShot(Entity2D entity)
+   *      public void addEnemyShot(Entity2D entity)
    *      
    *    If these methods are used there is no need to explicitly set the entity type as mentioned in step 2c. In this example
    *    the addEnemy() method will be called instead of the original method getEnemies().add(enemy). The new code for the method 
    *    will then become in the method body will then become. 
    *    
-   *      Entity enemy = new Entity();
+   *      EntityRectangle enemy = new EntityRectangle();
    *      enemy.setPosition(GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_WIDTH, GameUtility.random.nextDouble() * GameEngineConstants.DEFAULT_CANVAS_HEIGHT);
    *      enemy.setColor(Color.BLUE);
    *
@@ -121,23 +121,25 @@ public class AvoidTheSquare extends GameEngine
    *    
    * NOTE: You can move your square and collide with the enemy square, but nothing seems to happen. The game engine detects the
    *       collision, but there is no logic in place to handle the collision between the player and enemy. To better understand
-   *       this add the following line below to the method public void userHandleEntityCollision(Entity entity1, Entity entity2),
+   *       this add the following line below to the method public void userHandleEntityCollision(Entity2D entity1, Entity2D entity2),
    *       which is located near the bottom of this file.
    *       
    *       System.out.println("A collision occured!");
    *
    *       Re-run the game and now when the player collides with the enemy square, the message "A collision occurred!" should be
-   *       displayed one or more times in the Eclispe Console window. It is in the method userHandleEntityCollision(Entity entity1, 
-   *       Entity entity2) where collisions are handled between the different entities. This is why each entity needs to be assigned 
+   *       displayed one or more times in the Eclispe Console window. It is in the method userHandleEntityCollision(Entity2D entity1, 
+   *       Entity2D entity2) where collisions are handled between the different entities. This is why each entity needs to be assigned 
    *       a type (as shown in step 3c) so the types of each entity (entity1 and entity2) can be compared with one another to see if 
    *       any processing should occur (e.g., if entity1 has type PLAYER and entity2 has type ENEMY, then mark both as killed). More
    *       about collisions will take place in the next tutorial. 
    *          
+   * NOTE: The variables screenWidth and screenHeight are protected variables defined in the GameEngine class and are assigned their 
+   *       respective value when the GameEngine class is instantiated.
    */
   public void userGameInit()
   {
     EntityRectangle player = new EntityRectangle(GameEngineConstants.EntityTypes.PLAYER, 16, 16);
-    player.setPosition(GameEngineConstants.DEFAULT_CANVAS_WIDTH/2, GameEngineConstants.DEFAULT_CANVAS_HEIGHT/2);
+    player.setPosition(screenWidth/2, screenHeight/2);
     this.setNewPlayerEntity(player);
 
     keyLeftPressed = false;
